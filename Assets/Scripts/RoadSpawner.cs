@@ -78,16 +78,14 @@ public class RoadSpawner : MonoBehaviour
     private void GenerateObjectsForBlock(RoadBlock block)
     {
         // 
-        float speed = 1f;
         int maxNumberOfCoins = 4;
         int maxNumberOfObstacles = 1;
 
-        // TODO: Generate number of coins
+        // Generate number of coins
         int numberOfGeneratedCoins = Random.Range(0, maxNumberOfCoins + 1);
 
-        // TODO: Generate number of obstacles
+        // Generate number of obstacles
         int numberOfGeneratedObstacles = Random.Range(0, maxNumberOfObstacles + 1);
-        Debug.Log("number of " + numberOfGeneratedObstacles);
 
         // Create objects
         List<GameObject> roadObjects = new List<GameObject>();

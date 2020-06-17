@@ -15,13 +15,11 @@ public class PlayerControl : MonoBehaviour
 
     //
     Rigidbody rigidBody;
-    BoxCollider boxCollider;
     GameManager gameManager;
 
     private void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
-        boxCollider = GetComponent<BoxCollider>();
         gameManager = FindObjectOfType<GameManager>();
     }
 
@@ -65,24 +63,26 @@ public class PlayerControl : MonoBehaviour
 
     private void CheckJump()
     {
-        //if (!inAir)
-        //{
+        if (!inAir)
+        {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                rigidBody.velocity = Vector3.up * jumpSpeed;
                 inAir = true;
+                Debug.Log(rigidBody.velocity);
+                rigidBody.velocity = Vector3.up * jumpSpeed;
             }
-        //}
-        //else
-        //{
-            //Vector3 vel = rigidBody.velocity;
-            //vel.y -= jumpingGravity * Time.deltaTime;
-            //rigidBody.velocity = vel;
-        //}
-    }
+        }
+        else
+        {
+            Vector3 vel = rigidBody.velocity;
+            vel.y -= jumpingGravity * Time.deltaTime;
+            rigidBody.velocity = vel;
+        }     
+    }      
 
     private void OnTriggerEnter(Collider other)
     {
+
         if (other.tag.Equals("Coin"))
         {
             gameManager.AddCoin();
@@ -90,14 +90,20 @@ public class PlayerControl : MonoBehaviour
         }
         else if (other.tag.Equals("Obstacle"))
         {
+            Debug.Log(other.tag);
             gameManager.FinishGame();
+        }
+        else
+        {
+            rigidBody.velocity = Vector3.zero;
+            StartCoroutine(SetInAir(false));
         }
     }
 
-    //IEnumerator MakeInAir()
-    //{
-    //    yield return new WaitForSeconds(0.1f);
+    IEnumerator SetInAir(bool value)
+    {
+        yield return new WaitForSeconds(0.15f);
 
-    //    inAir = false;
-    //}
+        inAir = value;
+    }
 }
