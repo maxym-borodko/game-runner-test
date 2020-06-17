@@ -15,7 +15,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] int coinsPerLevelIncrement = 50; // absolute value
 
     //
-    [SerializeField] float startSpeed = 0.5f;
+    public float speed = 8f;
+
+    [Range(0, 3)]
     [SerializeField] float speedPerLevelIncrement = 0.05f; // coeficient value
 
     //
@@ -55,6 +57,7 @@ public class GameManager : MonoBehaviour
     {
         level++;
         numberOfCoinsForNextLevel += coinsPerLevelIncrement;
+        speed += speed * speedPerLevelIncrement;
 
         ShowNextLevel();
     }

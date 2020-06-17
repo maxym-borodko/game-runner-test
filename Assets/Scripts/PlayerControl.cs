@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour
 {
     //
-    [SerializeField] float speed = 0.5f;
     [SerializeField] int numberOfLanes = 3;
     [SerializeField] int currentLane = 2;
     [SerializeField] float laneWidth = 3;
@@ -34,7 +33,7 @@ public class PlayerControl : MonoBehaviour
 
     private void MoveForward()
     {
-        transform.position += Vector3.forward * speed * Time.deltaTime;
+        transform.position += Vector3.forward * gameManager.speed * Time.deltaTime;
     }
 
     private void CheckInput()
