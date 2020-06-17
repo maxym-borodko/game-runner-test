@@ -84,8 +84,6 @@ public class PlayerControl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.tag);
-
         if (other.tag.Equals("Coin"))
         {
             gameManager.AddCoin();

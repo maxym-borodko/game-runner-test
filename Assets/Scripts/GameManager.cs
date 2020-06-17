@@ -7,29 +7,66 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     //
-    [SerializeField] Text coinsLabel;
+    [SerializeField] Text coinsText;
+    [SerializeField] Text levelText;
+
+    //
+    [SerializeField] int numberOfCoinsForNextLevel = 50;
+    [SerializeField] int coinsPerLevelIncrement = 50; // absolute value
+
+    //
+    [SerializeField] float startSpeed = 0.5f;
+    [SerializeField] float speedPerLevelIncrement = 0.05f; // coeficient value
 
     //
     int coins = 0;
+    int level = 1;
+   
 
     public void AddCoin()
     {
         coins += 1;
+
+        if (coins == numberOfCoinsForNextLevel)
+        {
+            IncreaseLevel();
+        }
+
         UpdateText();
     }
 
     private void UpdateText()
     {
-        coinsLabel.text = coins.ToString();
+        coinsText.text = coins.ToString();
+        levelText.text = "Level " + level.ToString();
     }
 
     public void StartGame()
     {
-        coins = 0;
+        ResetValues();
     }
 
     public void FinishGame()
     {
+        ResetValues();
+    }
+
+    void IncreaseLevel()
+    {
+        level++;
+        numberOfCoinsForNextLevel += coinsPerLevelIncrement;
+
+        ShowNextLevel();
+    }
+
+    void ShowNextLevel()
+    {
+
+    }
+
+    void ResetValues()
+    {
         coins = 0;
+        level = 1;
     }
 }

@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class RoadSpawner : MonoBehaviour
@@ -77,18 +77,41 @@ public class RoadSpawner : MonoBehaviour
 
     private void GenerateObjectsForBlock(RoadBlock block)
     {
-        // Math
-        //block.PutObject(Instantiate(coinPrefab), 0, 0);
-        //block.PutObject(Instantiate(coinPrefab), 0, 1);
-        //block.PutObject(Instantiate(coinPrefab), 0, 2);
+        // 
+        float speed = 1f;
+        int maxNumberOfCoins = 4;
+        int maxNumberOfObstacles = 1;
 
-        //block.PutObject(Instantiate(coinPrefab), 1, 0);
-        block.PutObject(Instantiate(coinPrefab), 1, 1);
-        block.PutObject(Instantiate(obstaclePrefab), 2, 1);
+        // TODO: Generate number of coins
+        int numberOfGeneratedCoins = Random.Range(0, maxNumberOfCoins + 1);
 
-        //block.PutObject(Instantiate(coinPrefab), 2, 0);
-        //block.PutObject(Instantiate(coinPrefab), 2, 1);
-        //block.PutObject(Instantiate(coinPrefab), 2, 2);
+        // TODO: Generate number of obstacles
+        int numberOfGeneratedObstacles = Random.Range(0, maxNumberOfObstacles + 1);
+        Debug.Log("number of " + numberOfGeneratedObstacles);
+
+        // Create objects
+        List<GameObject> roadObjects = new List<GameObject>();
+
+        foreach (int _ in Enumerable.Range(0, numberOfGeneratedCoins))
+        {
+            roadObjects.Add(Instantiate(coinPrefab));
+        }
+
+        foreach (int _ in Enumerable.Range(0, numberOfGeneratedObstacles))
+        {
+            roadObjects.Add(Instantiate(obstaclePrefab));
+        }
+
+        // Get indices
+        var indices = block.GetAllIndices();
+
+        // Put objects to road object
+        foreach (GameObject roadObject in roadObjects)
+        {
+            var position = Random.Range(0, indices.Count);
+            var index = indices[position];
+            block.PutObject(roadObject, index.row, index.column);
+        }
     }
 
     private void DestroyLastBlock(RoadBlock first)

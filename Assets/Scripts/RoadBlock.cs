@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RoadBlock : MonoBehaviour
 {
-    [SerializeField] int numberOfRows = 3, numberOfColumns = 3;
+    [SerializeField] const int numberOfRows = 3, numberOfColumns = 3;
     [SerializeField] float rowsSize = 3f, columnSize = 3f;
 
     public int GetNumberOfRows()
@@ -41,8 +41,24 @@ public class RoadBlock : MonoBehaviour
     {
         newObject.transform.parent = transform;
         newObject.transform.localPosition = new Vector3(
-            (row - 1) * rowsSize,
+            column * columnSize - columnSize,
             1,
-            (column - 1) * columnSize);
+            row * rowsSize + rowsSize / 2);
+    }
+
+    public List<(int row, int column)> GetAllIndices()
+    {
+        List<(int row, int column)> indices = new List<(int row, int column)>();
+
+        for (int row = 0, currentIndex = 0; row < numberOfRows; row++)
+        {
+            for (int column = 0; column < numberOfColumns; column++, currentIndex++)
+            {
+                var index = (row: row, column: column);
+                indices.Add(index);
+            }
+        }
+
+        return indices;
     }
 }
