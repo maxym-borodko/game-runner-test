@@ -17,11 +17,13 @@ public class PlayerControl : MonoBehaviour
     //
     Rigidbody rigidBody;
     BoxCollider boxCollider;
+    GameManager gameManager;
 
     private void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
         boxCollider = GetComponent<BoxCollider>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     void Update()
@@ -82,29 +84,18 @@ public class PlayerControl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.tag);
+
         if (other.tag.Equals("Coin"))
         {
-            Debug.Log("Coin");
-            // notify manager
+            gameManager.AddCoin();
             Destroy(other.gameObject);
         }
+        else if (other.tag.Equals("Obstacle"))
+        {
+            gameManager.FinishGame();
+        }
     }
-
-    //void OnCollisionEnter(Collision collision)
-    //{
-    //    //if (collision.collider.tag.Equals("RoadBlock"))
-    //    //{aa
-    //    //    StartCoroutine(MakeInAir());
-    //    //}
-
-    //    Debug.Log(collision.collider.tag);
-    //    if (collision.collider.tag.Equals("Coin"))
-    //    {
-    //        Debug.Log("Coin");
-    //        // notify manager
-    //        Destroy(collision.collider.gameObject);
-    //    }
-    //}
 
     //IEnumerator MakeInAir()
     //{
