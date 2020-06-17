@@ -34,8 +34,6 @@ public class PlayerControl : MonoBehaviour
 
         currentLane = Mathf.Clamp(currentLane, 1, numberOfLanes);
 
-        Debug.Log(currentLane);
-
         //
         Vector3 newPosition = transform.position;
         newPosition.x = laneWidth * (currentLane - 2);
