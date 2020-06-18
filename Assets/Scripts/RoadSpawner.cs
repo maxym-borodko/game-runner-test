@@ -7,8 +7,8 @@ public class RoadSpawner : MonoBehaviour
     //
     [SerializeField] RoadBlock startRoadBlock;
     [SerializeField] RoadBlock roadBlockPrefab;
-    [SerializeField] GameObject coinPrefab;
-    [SerializeField] GameObject obstaclePrefab;
+    [SerializeField] GameObject[] foodPrefabs;
+    [SerializeField] GameObject[] obstaclePrefabs;
 
     [Range(0, 100)]
     [SerializeField] int numberOfBlocksForward = 15;
@@ -92,12 +92,14 @@ public class RoadSpawner : MonoBehaviour
 
         foreach (int _ in Enumerable.Range(0, numberOfGeneratedCoins))
         {
-            roadObjects.Add(Instantiate(coinPrefab));
+            var prefab = foodPrefabs[Random.Range(0, foodPrefabs.Length)];
+            roadObjects.Add(Instantiate(prefab));
         }
 
         foreach (int _ in Enumerable.Range(0, numberOfGeneratedObstacles))
         {
-            roadObjects.Add(Instantiate(obstaclePrefab));
+            var prefab = obstaclePrefabs[Random.Range(0, obstaclePrefabs.Length)];
+            roadObjects.Add(Instantiate(prefab));
         }
 
         // Get indices

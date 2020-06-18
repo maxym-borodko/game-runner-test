@@ -16,11 +16,14 @@ public class PlayerControl : MonoBehaviour
     //
     Rigidbody rigidBody;
     GameManager gameManager;
+    Animator animator;
 
     private void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
         gameManager = FindObjectOfType<GameManager>();
+
+        animator = GetComponentInChildren<Animator>();       
     }
 
     void Update()
@@ -68,6 +71,7 @@ public class PlayerControl : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 inAir = true;
+                animator.SetTrigger("Jump");
                 Debug.Log(rigidBody.velocity);
                 rigidBody.velocity = Vector3.up * jumpSpeed;
             }

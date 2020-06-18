@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     //
     int coins = 0;
     int level = 1;
-   
+
 
     public void AddCoin()
     {
