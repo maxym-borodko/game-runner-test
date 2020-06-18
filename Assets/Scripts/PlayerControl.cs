@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour
 {
     //
+    [SerializeField] AudioClip coinClip, jumpClip, deathClip;
     [SerializeField] int numberOfLanes = 3;
     [SerializeField] int currentLane = 2;
     [SerializeField] float laneWidth = 3;
@@ -15,19 +16,22 @@ public class PlayerControl : MonoBehaviour
     //
     Rigidbody rigidBody;
     GameManager gameManager;
-    Animator animator;
+    AudioSource audioSource;
 
     private void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
         gameManager = FindObjectOfType<GameManager>();
+        audioSource = GetComponentInChildren<AudioSource>();       
+    }
 
-        animator = GetComponentInChildren<Animator>();       
+    private void FixedUpdate()
+    {
+        MoveForward();
     }
 
     void Update()
     {
-        MoveForward();
         CheckInput();
     }
 
@@ -70,6 +74,7 @@ public class PlayerControl : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 inAir = true;
+                audioSource.PlayOneShot(jumpClip);
                 rigidBody.velocity = Vector3.up * jumpSpeed;
             }
         }
@@ -80,11 +85,13 @@ public class PlayerControl : MonoBehaviour
 
         if (other.tag.Equals("Coin"))
         {
+            audioSource.PlayOneShot(coinClip);
             gameManager.AddCoin();
             Destroy(other.gameObject);
         }
         else if (other.tag.Equals("Obstacle"))
         {
+            audioSource.PlayOneShot(deathClip);
             gameManager.FinishGame();
         }
         else if (other.tag.Equals("RoadBlock"))
@@ -97,7 +104,6 @@ public class PlayerControl : MonoBehaviour
     IEnumerator SetInAir(bool value)
     {
         yield return new WaitForSeconds(0.15f);
-
         inAir = value;
     }
 }

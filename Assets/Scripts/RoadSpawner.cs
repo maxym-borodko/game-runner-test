@@ -21,10 +21,12 @@ public class RoadSpawner : MonoBehaviour
 
     //
     PlayerControl player;
+    GameManager gameManager;
 
     private void Start()
     {
         player = FindObjectOfType<PlayerControl>();
+        gameManager = FindObjectOfType<GameManager>();
 
         if (startRoadBlock != null)
         {
@@ -78,8 +80,8 @@ public class RoadSpawner : MonoBehaviour
     private void GenerateObjectsForBlock(RoadBlock block)
     {
         // 
-        int maxNumberOfCoins = 4;
-        int maxNumberOfObstacles = 1;
+        int maxNumberOfCoins = gameManager.GetMaxNumberOfCoins();
+        int maxNumberOfObstacles = gameManager.GetMaxNumberOfObstacles();
 
         // Generate number of coins
         int numberOfGeneratedCoins = Random.Range(0, maxNumberOfCoins + 1);

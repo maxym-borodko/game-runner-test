@@ -8,12 +8,10 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     //
-    [SerializeField] Text coinsText;
-    [SerializeField] Text levelText;
-
-    //
     [SerializeField] int numberOfCoinsForNextLevel = 50;
     [SerializeField] int coinsPerLevelIncrement = 50; // absolute value
+    [SerializeField] int startMaxNumberOfCoins = 4; // TODO: implement decreasing with levels up
+    [SerializeField] int startMaxNumberOfObstacles = 1; // TODO: implement increasing with levels up
 
     //
     public float speed = 8f;
@@ -34,14 +32,26 @@ public class GameManager : MonoBehaviour
         {
             IncreaseLevel();
         }
-
-        UpdateText();
     }
 
-    private void UpdateText()
+    public int GetCoins()
     {
-        coinsText.text = coins.ToString();
-        levelText.text = "Level " + level.ToString();
+        return coins;
+    }
+
+    public int GetLevel()
+    {
+        return level;
+    }
+
+    public int GetMaxNumberOfCoins()
+    {
+        return startMaxNumberOfCoins;
+    }
+
+    public int GetMaxNumberOfObstacles()
+    {
+        return startMaxNumberOfObstacles;
     }
 
     public void StartGame()
@@ -55,6 +65,16 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+    }
+
     public void FinishGame()
     {
         SceneManager.LoadScene(2);
@@ -65,13 +85,6 @@ public class GameManager : MonoBehaviour
         level++;
         numberOfCoinsForNextLevel += coinsPerLevelIncrement;
         speed += speed * speedPerLevelIncrement;
-
-        ShowNextLevel();
-    }
-
-    void ShowNextLevel()
-    {
-
     }
 
     void ResetValues()
