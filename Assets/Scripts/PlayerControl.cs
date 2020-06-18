@@ -9,7 +9,6 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] int currentLane = 2;
     [SerializeField] float laneWidth = 3;
     [SerializeField] float jumpSpeed = 7;
-    [SerializeField] float jumpingGravity = 60f;
 
     bool inAir = false;
 
@@ -71,17 +70,9 @@ public class PlayerControl : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 inAir = true;
-                animator.SetTrigger("Jump");
-                Debug.Log(rigidBody.velocity);
                 rigidBody.velocity = Vector3.up * jumpSpeed;
             }
         }
-        else
-        {
-            Vector3 vel = rigidBody.velocity;
-            vel.y -= jumpingGravity * Time.deltaTime;
-            rigidBody.velocity = vel;
-        }     
     }      
 
     private void OnTriggerEnter(Collider other)
@@ -94,10 +85,9 @@ public class PlayerControl : MonoBehaviour
         }
         else if (other.tag.Equals("Obstacle"))
         {
-            Debug.Log(other.tag);
             gameManager.FinishGame();
         }
-        else
+        else if (other.tag.Equals("RoadBlock"))
         {
             rigidBody.velocity = Vector3.zero;
             StartCoroutine(SetInAir(false));

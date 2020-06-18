@@ -47,6 +47,24 @@ MonoBehaviour:
   startRoadBlock: {fileID: 836685058066968962}
   roadBlockPrefab: {fileID: 2088721050622473559, guid: 055033e715e584733b2964d7f3f4053f,
     type: 3}
+  foodPrefabs:
+  - {fileID: 4345252732144681754, guid: 0db6a589b6b164904ac5de13d2958b63, type: 3}
+  - {fileID: 4345252732144681754, guid: af1cfe3f5d4db4d04b9241dd2ffd1dce, type: 3}
+  - {fileID: 4345252732144681754, guid: 0b1eab8f527fa4996a7d9e140ba27ffb, type: 3}
+  - {fileID: 4345252732144681754, guid: f3c963e9e502c458082d9994704498df, type: 3}
+  - {fileID: 4345252732144681754, guid: 2a3e1f874a4df47ee912af69d131c502, type: 3}
+  - {fileID: 4345252732144681754, guid: 8b099a16ac4244a4e8cdb0d00539e3d5, type: 3}
+  - {fileID: 4345252732144681754, guid: cc8c608deaff540e58df990ee6836f2c, type: 3}
+  - {fileID: 4345252732144681754, guid: bebbb64a67f324d2bad824ae447353d8, type: 3}
+  - {fileID: 4345252732144681754, guid: 0e50b196f972744e681a5f791d9215d2, type: 3}
+  - {fileID: 4345252732144681754, guid: 90e36590550dc4ad7a3dacb6a876393e, type: 3}
+  obstaclePrefabs:
+  - {fileID: 9155279082995965389, guid: 1757f859cc1994985bebe8019c1ef9b9, type: 3}
+  - {fileID: 9155279082995965389, guid: 906d4a79e4a2044a48fafded888649cf, type: 3}
+  - {fileID: 9155279082995965389, guid: 42f52a234d2d243199cc43dd21b4f9a9, type: 3}
+  - {fileID: 9155279082995965389, guid: a5f4ca698603b46a782cc62bce6cc038, type: 3}
+  - {fileID: 9155279082995965389, guid: be7e32316d05d4090876709be27f2853, type: 3}
+  - {fileID: 9155279082995965389, guid: cd8fe0cb7a53a4587b294f704bcb4773, type: 3}
   numberOfBlocksForward: 15
   numberOfBlocksBehind: 4
 --- !u!1001 &1684381557681210581
